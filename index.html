@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/normalize.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="styles/stylishinput.css">
+        <link rel="stylesheet" href="styles/styles.css">
+        <title>TODO</title>
+    </head>
+    
+    <body>
+        <nav>
+            <div class='toggle-menu'>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div>// TODO:</div>
+        </nav>
+
+        <div class="sidebar">
+            <button id="newProject" class="sidebar-item">Add new project...</button>
+            <button class="sidebar-item active-project">Project Alpha</button>
+            <button class="sidebar-item">Project Beta</button>
+            <button class="sidebar-item">Project Gamma</button>
+        </div>
+
+        <div class="main">
+            <div class="table" id="container">
+
+                <h1>
+                    <span id="currentProject">Project Alpha</span>
+                    <span id='editProject' class="material-icons">edit</span>
+                    <span id='deleteProject' class="material-icons">delete_outline</span>
+                </h1>
+
+                <button id="addTodoButton" alt="Add to do">+</button>
+
+                <div class="row-container">
+                    <div class="table-row" data-index="0">
+                        <label for="0" class="si si-checkbox">
+                            <input type="checkbox" id="0"/>
+                            <span class="si-label"></span>
+                        </label>
+                        <div class="todo-control material-icons important">star</div>
+                        <div class="todo-title">Investigate Beta</div>
+                        <div class="todo-control float-right material-icons">expand_less</div>
+                        <div class="todo-control float-right material-icons">edit</div>
+                        <div class="todo-control float-right material-icons">delete_outline</div>
+                    </div>
+                    <div class="todo-comment show">Expanded Comment</div>
+                </div>
+
+                <div class="row-container">
+                    <div class="table-row" data-index="1">
+                        <label for="1" class="si si-checkbox">
+                            <input type="checkbox" id="1" checked/>
+                            <span class="si-label"></span>
+                        </label>
+                        <div class="todo-control material-icons">star_border</div>
+                        <div class="todo-title">Observe Gamma</div>
+                        <div class="todo-control float-right material-icons">expand_more</div>
+                        <div class="todo-control float-right material-icons">edit</div>
+                        <div class="todo-control float-right material-icons">delete_outline</div>
+                    </div>
+                    <div class="todo-comment">Hidden Comment</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-todo-window" style="visibility: hidden">
+            <form name="addTodo" class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Title">
+                <textarea rows="5" cols="40" placeholder="Comments" name="comments" class="form-control comments"></textarea>
+                <button id="add" class="form-control btn">Add</button>
+                <button id="close-add-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
+        <div id="edit-todo-window" style="visibility: hidden">
+            <form name="editTodo" class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Title">
+                <textarea rows="5" cols="40" placeholder="Comments" name="comments" class="form-control comments"></textarea>
+                <button id="update" class="form-control btn">Update</button>
+                <button id="close-edit-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
+        <div id="add-project-window" style="visibility: hidden">
+            <form name="addProject" class="form-group">
+                <input type="text" name="project-title" class="form-control" placeholder="Project title">
+                <button id="add-project" class="form-control btn">Add</button>
+                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
+        <div id="edit-project-window" style="visibility: hidden">
+            <form name="editProject" class="form-group">
+                <input type="text" name="project-title" class="form-control" placeholder="Project title">
+                <button id="add-project" class="form-control btn">Update</button>
+                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>
