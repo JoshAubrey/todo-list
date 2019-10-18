@@ -1,0 +1,291 @@
+/* General style */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+}
+
+#currentProject {
+  font-size: 2.28rem;
+  font-weight: normal;
+}
+
+#editProject, #deleteProject {
+  color: lightgrey;
+}
+
+#editProject:hover, #deleteProject:hover {
+  color: #0c0c0c;
+  cursor: pointer;
+}
+
+.sidebar {
+  display: block;
+  background-color: white;
+  margin: 55px auto 0;
+  border-right: 1px solid;
+  border-right-color: rgb(224, 224, 224);
+  width: calc(25% - 1px);
+  height: calc(100vh - 55px);
+  float: left;
+}
+
+.main {
+  display: inline-block;
+  width: 75%;
+  margin: 60px auto 0;
+}
+
+/* Form styles */
+
+.form-group {
+  position: relative;
+  top: 25%;
+  margin: 0 auto;
+  width: 70%;
+  text-align: center;
+}
+
+.form-control {
+  border: 0;
+  outline: 0;
+  background: white;
+  border-bottom: 1px lightgrey solid;
+  display: block;
+  margin: 20px auto;
+}
+
+.comments {
+  border: 1px lightgray solid;
+  resize: none;
+}
+
+/* Menu styles */
+
+nav {
+  color: #1DF915;
+  background-color: #202020;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  font-size: 25px;
+  height: 30px;
+  margin: 0;
+  padding: .5em;
+  box-shadow: gray;
+}
+
+.toggle-menu {
+  margin-right: 1em;
+  float: left;
+  display: none;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 6px 0;
+  transition: .4s ease-in-out;
+}
+
+.sidebar-item {
+  display: block;
+  color: black;
+  padding: 12px 16px;
+  font-size: 1.15rem;
+  text-decoration: none;
+  text-align: left;
+  transition: .1s ease-in-out;
+  border:none;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid;
+  border-bottom-color: rgb(224, 224, 224);
+}
+
+.sidebar-item:hover {
+  border-left: 5px solid #0c0c0c;
+  cursor: pointer;
+}
+
+#newProject {
+  font-size:15px;
+  color:#757575;
+}
+
+#newProject:hover {
+  border-left: none;
+}
+
+.active-project {
+  border-left: 5px solid #0c0c0c;
+}
+
+/* Table styles */
+
+.table {
+  margin: 20px;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.5em;
+  padding-bottom: .5em;
+}
+
+.row-container {
+  margin-left: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+.todo-title {
+  display: inline-block;
+  margin: auto 0;
+  cursor: pointer;
+  flex: 2 0 0;
+  position: relative;
+}
+
+.todo-control {
+  color: lightgrey;
+  padding: 0 0.25em;
+  display: inline-block;
+}
+
+.material-icons {
+  font-size: 22px;
+}
+
+.float-right {
+  float: right;
+}
+
+.todo-control:hover {
+  color: #0c0c0c;
+  cursor: pointer;
+}
+
+.todo-comment {
+  display: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /* font-size: 0.7em; */
+  /* margin-left: 87px;
+  padding-left:0.5em; */
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.important {
+  visibility: visible;
+  color: gold;
+}
+.important:hover {
+  color: yellow;
+}
+
+/* Button styles */
+
+#addTodoButton{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border:none;
+  outline:none;
+  font-size:45px;
+  line-height: 42.5px;
+  background-color: transparent;
+  padding: 0px;
+  transition:.4s;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#addTodoButton:hover {
+  cursor: pointer;
+  transform:scale(1.1);
+  transform:rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+#add-todo-window, #add-project-window , #edit-todo-window, #edit-project-window{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 9;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #ffffff;
+  padding: 0.3em 0.5em;
+  color: #0c0c0c;
+  border: none;
+}
+
+.btn:hover {
+  color: #0c0c0c;
+  cursor: pointer;
+}
+
+/* Mobile */
+
+@media only screen and (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    background: #202020;
+    min-height: 100vh;
+    text-align: center;
+    overflow-x: hidden;
+    width: 0;
+    z-index: 5;
+    transition: width .3s ease-in-out;
+  }
+
+  .active-project {
+    border-left: 5px solid white;
+  }
+
+  .mobile {
+    width: 100%;
+  }
+
+  .sidebar-item {
+    color: white;
+  }
+
+  .sidebar-item:hover {
+    background: white;
+    color: #0c0c0c;
+    border: none;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .table {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .toggle-menu {
+    display: inline;
+    cursor: pointer;
+  }
+}
