@@ -1,0 +1,7 @@
+function renderProjects() {
+
+}
+
+function renderTodos() {
+    
+}
