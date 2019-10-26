@@ -1,6 +1,13 @@
 let projectArray = []
 let todoArray = []
 
+console.clear();
+localStorage.removeItem('projectArray')
+localStorage.removeItem('todoArray')
+//json.stringify drops functions for localstorage
+//solution 1: take the function out and change it so that it will take the object and update it instead.
+//solution 2: another option besides json.stringify?
+
 function checkForStorage() {
     //check for and then create or read localStorage
     if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('projectArray')) == null)) {

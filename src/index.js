@@ -14,7 +14,8 @@ import {
 checkForStorage()
 seed()
 
+console.table(todoArray)
+
 todoArray.forEach(todo => todo.toggleDone())
-//Uncaught TypeError: todo.toggleDone is not a function
 
 console.table(todoArray)
