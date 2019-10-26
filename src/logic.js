@@ -1,23 +1,25 @@
 let projectArray = []
 let todoArray = []
 
-//check for and then create or read localStorage
-if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('projectArray')) == null)) {
-    localStorage.setItem('projectArray', JSON.stringify(projectArray))
-}
-else if (storageAvailable('localStorage')) {
-    projectArray = JSON.parse(localStorage.getItem('projectArray'))
-    console.log(projectArray)
-}
-if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('todoArray')) == null)) {
-    localStorage.setItem('todoArray', JSON.stringify(todoArray))
-}
-else if (storageAvailable('localStorage')) {
-    todoArray = JSON.parse(localStorage.getItem('todoArray'))
-    console.log(todoArray)
+function checkForStorage() {
+    //check for and then create or read localStorage
+    if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('projectArray')) == null)) {
+        localStorage.setItem('projectArray', JSON.stringify(projectArray))
+    }
+    else if (storageAvailable('localStorage')) {
+        projectArray = JSON.parse(localStorage.getItem('projectArray'))
+        console.table(projectArray)
+    }
+    if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('todoArray')) == null)) {
+        localStorage.setItem('todoArray', JSON.stringify(todoArray))
+    }
+    else if (storageAvailable('localStorage')) {
+        todoArray = JSON.parse(localStorage.getItem('todoArray'))
+        console.table(todoArray)
+    }
 }
 
-function Todo (title, project, done, important, comment) {
+function Todo(title, project, done, important, comment) {
     this.title = title
     this.project = project
     this.done = done
@@ -40,6 +42,33 @@ Todo.prototype.toggleImportant = function() {
         localStorage.setItem('todoArray', JSON.stringify(todoArray))
         }
 }
+
+// class Todo {
+//     constructor(title, project, done, important, comment) {
+//         this.title = title
+//         this.project = project
+//         this.done = done
+//         this.important = important
+//         this.comment = comment
+//     }
+
+//     toggleDone() {
+//         this.done = !this.done
+
+//         if (storageAvailable('localStorage')) {
+//             localStorage.setItem('todoArray', JSON.stringify(todoArray))
+//             }
+//     }
+
+//     toggleImportant() {
+//         this.important = !this.important
+
+//         if (storageAvailable('localStorage')) {
+//             localStorage.setItem('todoArray', JSON.stringify(todoArray))
+//             }
+//     }
+
+// }
 
 function addProject(project){
     projectArray.push(project)
@@ -83,17 +112,20 @@ function removeTodo(index) {
       }
 }
 
-//set default projectArray if there are none
-if (projectArray == '')
-{
-    addProject('Project Alpha')
-    addProject('Project Beta')
-    addProject('Project Gamma')
-}
-//set default todoArray if there are none
-if (todoArray == '') {
-    addTodo(new Todo('Investigate Beta', 'Project Alpha', false, true, 'See what Beta is up to.'))
-    addTodo(new Todo('Observe Gamma', 'Project Alpha', true, false, 'Keep an eye on Gamma.'))
+function seed() {
+    //set default projectArray if there are none
+    if (projectArray == '')
+    {
+        addProject('Project Alpha')
+        addProject('Project Beta')
+        addProject('Project Gamma')
+    }
+    //set default todoArray if there are none
+    if (todoArray == '') {
+        addTodo(new Todo('Investigate Beta', 'Project Alpha', false, true, 'See what Beta is up to.'))
+        addTodo(new Todo('Observe Gamma', 'Project Alpha', true, false, 'Keep an eye on Gamma.'))
+    }
+    
 }
 
 //check for storage, source: https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#Testing_for_availability
@@ -120,4 +152,16 @@ function storageAvailable(type) {
             // acknowledge QuotaExceededError only if there's something already stored
             (storage && storage.length !== 0);
     }
+}
+
+export {
+    projectArray, 
+    todoArray, 
+    checkForStorage, 
+    Todo, 
+    addProject, 
+    addTodo, 
+    removeProject, 
+    removeTodo, 
+    seed
 }
