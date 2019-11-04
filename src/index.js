@@ -2,7 +2,9 @@ import {
     projectArray, 
     todoArray, 
     checkForStorage, 
-    Todo, 
+    Todo,
+    toggleDone,
+    toggleImportant, 
     addProject, 
     addTodo, 
     removeProject, 
@@ -16,6 +18,6 @@ seed()
 
 console.table(todoArray)
 
-todoArray.forEach(todo => todo.toggleDone())
+todoArray.forEach(todo => toggleImportant(todo))
 
 console.table(todoArray)

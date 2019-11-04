@@ -1,12 +1,11 @@
 let projectArray = []
 let todoArray = []
 
-console.clear();
-localStorage.removeItem('projectArray')
-localStorage.removeItem('todoArray')
-//json.stringify drops functions for localstorage
-//solution 1: take the function out and change it so that it will take the object and update it instead.
-//solution 2: another option besides json.stringify?
+//console.clear()
+//localStorage.removeItem('projectArray')
+//localStorage.removeItem('todoArray')
+//json.stringify drops functions for localstorage such as class and prototype methods (toggledone, toggleimportant).
+//Solution: Created independent functions that take the objects and updates them. 
 
 function checkForStorage() {
     //check for and then create or read localStorage
@@ -15,14 +14,14 @@ function checkForStorage() {
     }
     else if (storageAvailable('localStorage')) {
         projectArray = JSON.parse(localStorage.getItem('projectArray'))
-        console.table(projectArray)
+        //console.table(projectArray)
     }
     if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('todoArray')) == null)) {
         localStorage.setItem('todoArray', JSON.stringify(todoArray))
     }
     else if (storageAvailable('localStorage')) {
         todoArray = JSON.parse(localStorage.getItem('todoArray'))
-        console.table(todoArray)
+        //console.table(todoArray)
     }
 }
 
@@ -34,21 +33,21 @@ function Todo(title, project, done, important, comment) {
     this.comment = comment
 }
 
-Todo.prototype.toggleDone = function() {
-    this.done = !this.done
+// Todo.prototype.toggleDone = function() {
+//     this.done = !this.done
 
-    if (storageAvailable('localStorage')) {
-        localStorage.setItem('todoArray', JSON.stringify(todoArray))
-        }
-}
+//     if (storageAvailable('localStorage')) {
+//         localStorage.setItem('todoArray', JSON.stringify(todoArray))
+//         }
+// }
 
-Todo.prototype.toggleImportant = function() {
-    this.important = !this.important
+// Todo.prototype.toggleImportant = function() {
+//     this.important = !this.important
 
-    if (storageAvailable('localStorage')) {
-        localStorage.setItem('todoArray', JSON.stringify(todoArray))
-        }
-}
+//     if (storageAvailable('localStorage')) {
+//         localStorage.setItem('todoArray', JSON.stringify(todoArray))
+//         }
+// }
 
 // class Todo {
 //     constructor(title, project, done, important, comment) {
@@ -77,7 +76,25 @@ Todo.prototype.toggleImportant = function() {
 
 // }
 
-function addProject(project){
+function toggleDone(todo) {
+
+    todo.done = !todo.done
+
+    if (storageAvailable('localStorage')) {
+        localStorage.setItem('todoArray', JSON.stringify(todoArray))
+      }
+}
+
+function toggleImportant(todo) {
+
+    todo.important = !todo.important
+
+    if (storageAvailable('localStorage')) {
+        localStorage.setItem('todoArray', JSON.stringify(todoArray))
+      }
+}
+
+function addProject(project) {
     projectArray.push(project)
 
     if (storageAvailable('localStorage')) {
@@ -165,7 +182,9 @@ export {
     projectArray, 
     todoArray, 
     checkForStorage, 
-    Todo, 
+    Todo,
+    toggleDone,
+    toggleImportant, 
     addProject, 
     addTodo, 
     removeProject, 
