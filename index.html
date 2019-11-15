@@ -11,7 +11,7 @@
     
     <body>
         <nav>
-            <div class='toggle-menu'>
+            <div class='toggle-menu' id ="toggleMenu">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -19,23 +19,30 @@
             <div>// TODO:</div>
         </nav>
 
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <button id="newProject" class="sidebar-item">Add new project...</button>
-            <button class="sidebar-item active-project">Project Alpha</button>
-            <button class="sidebar-item">Project Beta</button>
-            <button class="sidebar-item">Project Gamma</button>
+            
+            <div id="projectMenu">
+                <button class="sidebar-item active-project">Project Alpha</button>
+                <button class="sidebar-item">Project Beta</button>
+                <button class="sidebar-item">Project Gamma</button>
+            </div>
+
         </div>
 
         <div class="main">
-            <div class="table" id="container">
 
+            <div id="header">
                 <h1>
                     <span id="currentProject">Project Alpha</span>
                     <span id='editProject' class="material-icons">edit</span>
                     <span id='deleteProject' class="material-icons">delete_outline</span>
                 </h1>
-
+                
                 <button id="addTodoButton" alt="Add to do">+</button>
+            </div>
+            
+            <div class="table" id="todoTable">
 
                 <div class="row-container">
                     <div class="table-row" data-index="0">
@@ -69,6 +76,20 @@
             </div>
         </div>
 
+        <div id="add-project-window" style="visibility: hidden">
+            <form name="addProject" class="form-group">
+                <input type="text" name="project-title" class="form-control" placeholder="Project title">
+                <button id="add-project" class="form-control btn">Add</button>
+                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
+        <div id="edit-project-window" style="visibility: hidden">
+            <form name="editProject" class="form-group">
+                <input type="text" name="project-title" class="form-control" placeholder="Project title">
+                <button id="add-project" class="form-control btn">Update</button>
+                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+            </form>
+        </div>
         <div id="add-todo-window" style="visibility: hidden">
             <form name="addTodo" class="form-group">
                 <input type="text" name="title" class="form-control" placeholder="Title">
@@ -83,20 +104,6 @@
                 <textarea rows="5" cols="40" placeholder="Comments" name="comments" class="form-control comments"></textarea>
                 <button id="update" class="form-control btn">Update</button>
                 <button id="close-edit-form" class="form-control btn">Cancel</button>
-            </form>
-        </div>
-        <div id="add-project-window" style="visibility: hidden">
-            <form name="addProject" class="form-group">
-                <input type="text" name="project-title" class="form-control" placeholder="Project title">
-                <button id="add-project" class="form-control btn">Add</button>
-                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
-            </form>
-        </div>
-        <div id="edit-project-window" style="visibility: hidden">
-            <form name="editProject" class="form-group">
-                <input type="text" name="project-title" class="form-control" placeholder="Project title">
-                <button id="add-project" class="form-control btn">Update</button>
-                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
             </form>
         </div>
 
