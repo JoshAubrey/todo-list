@@ -187,6 +187,28 @@ function renderTodo(todo, index) {
 
 const newProject = document.getElementById('newProject')
 const addProjectWindow = document.getElementById('add-project-window')
+const newProjectTitle = document.getElementById('newProjectTitle')
+const addProjectButton = document.getElementById('add-project')
+const cancelAddProjectButton = document.getElementById('close-new-project-form')
+newProject.onclick = () => {
+    addProjectWindow.style.visibility = 'visible'
+}
+addProjectButton.addEventListener('click', (e) => {
+    e.preventDefault() //prevent page refresh
+    if (newProjectTitle.value !== '') {
+        addProject(newProjectTitle.value)
+        currentProject = newProjectTitle.value
+        newProjectTitle.value = ''
+        renderTodoTable()
+        renderProjectMenu()
+        addProjectWindow.style.visibility = 'hidden'
+    }
+})
+cancelAddProjectButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    newProjectTitle.value = ''
+    addProjectWindow.style.visibility = 'hidden'
+})
 
 const editProject = document.getElementById('edit-todo-window')
 const editProjectWindow = document.getElementById('add-project-window')
@@ -202,6 +224,36 @@ deleteProject.onclick = () => {
 
 const addTodoButton = document.getElementById('addTodoButton')
 const addTodoWindow = document.getElementById('add-todo-window')
+const newTodoTitle = document.getElementById('newTodoTitle')
+const newTodoComments = document.getElementById('newTodoComments')
+const addNewTodoButton = document.getElementById('add-todo')
+const cancelAddNewTodoButton = document.getElementById('close-add-todo-form')
+addTodoButton.onclick = () => {
+    addTodoWindow.style.visibility = 'visible'
+}
+addNewTodoButton.addEventListener('click', (e) => {
+    e.preventDefault() //prevent page refresh
+    if (newTodoTitle.value !== '') {
+        addTodo(new Todo(
+            newTodoTitle.value,
+            currentProject,
+            false,
+            false,
+            newTodoComments.value
+        ))
+        newTodoTitle.value = ''
+        newTodoComments.value = ''
+        renderTodoTable()
+        renderProjectMenu()
+        addTodoWindow.style.visibility = 'hidden'
+    }
+})
+cancelAddNewTodoButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    newTodoTitle.value = ''
+    newTodoComments.value = ''
+    addTodoWindow.style.visibility = 'hidden'
+})
 
 const toggleMenu = document.getElementById('toggleMenu')
 const sidebar = document.getElementById('sidebar')

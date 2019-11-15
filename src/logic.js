@@ -120,9 +120,6 @@ function removeProject(index) {
             removeTodo(i)
             i-- //avoid skipping index because of remoteTodo's splicing
         }
-        else {
-            console.log(todoArray[i].project + ' != ' + projectArray[index])
-        }
     }
 
     projectArray.splice(index, 1)
