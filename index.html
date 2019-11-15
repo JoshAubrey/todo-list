@@ -78,32 +78,32 @@
 
         <div id="add-project-window" style="visibility: hidden">
             <form name="addProject" class="form-group">
-                <input type="text" name="project-title" class="form-control" placeholder="Project title">
+                <input type="text" id="newProjectTitle" name="project-title" class="form-control" placeholder="Project title">
                 <button id="add-project" class="form-control btn">Add</button>
-                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+                <button target="#" id="close-new-project-form" class="form-control btn">Cancel</button>
             </form>
         </div>
         <div id="edit-project-window" style="visibility: hidden">
             <form name="editProject" class="form-group">
-                <input type="text" name="project-title" class="form-control" placeholder="Project title">
-                <button id="add-project" class="form-control btn">Update</button>
-                <button target="#" id="close-project-form" class="form-control btn">Cancel</button>
+                <input type="text" id="editedProjectTitle" name="project-title" class="form-control" placeholder="Project title">
+                <button id="update-project" class="form-control btn">Update</button>
+                <button target="#" id="close-edit-project-form" class="form-control btn">Cancel</button>
             </form>
         </div>
         <div id="add-todo-window" style="visibility: hidden">
             <form name="addTodo" class="form-group">
-                <input type="text" name="title" class="form-control" placeholder="Title">
-                <textarea rows="5" cols="40" placeholder="Comments" name="comments" class="form-control comments"></textarea>
-                <button id="add" class="form-control btn">Add</button>
-                <button id="close-add-form" class="form-control btn">Cancel</button>
+                <input type="text" id="newTodoTitle" name="title" class="form-control" placeholder="Title">
+                <textarea rows="5" cols="40" id="newTodoComments" placeholder="Comments" name="comments" class="form-control comments"></textarea>
+                <button id="add-todo" class="form-control btn">Add</button>
+                <button id="close-add-todo-form" class="form-control btn">Cancel</button>
             </form>
         </div>
         <div id="edit-todo-window" style="visibility: hidden">
             <form name="editTodo" class="form-group">
                 <input type="text" name="title" class="form-control" placeholder="Title">
                 <textarea rows="5" cols="40" placeholder="Comments" name="comments" class="form-control comments"></textarea>
-                <button id="update" class="form-control btn">Update</button>
-                <button id="close-edit-form" class="form-control btn">Cancel</button>
+                <button id="update-todo" class="form-control btn">Update</button>
+                <button id="close-edit-todo-form" class="form-control btn">Cancel</button>
             </form>
         </div>
 
