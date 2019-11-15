@@ -12,12 +12,15 @@ import {
     seed
 } from './logic.js'
 
+import {
+    renderProjectMenu, 
+    renderTodoTable,
+    currentProject
+} from './dom.js'
 
-checkForStorage()
-seed()
+renderProjectMenu()
+renderTodoTable()
 
-console.table(todoArray)
-
-todoArray.forEach(todo => toggleImportant(todo))
-
-console.table(todoArray)
+// console.table(projectArray)
+// console.log('currentProject: ' + currentProject)
+// console.table(todoArray)

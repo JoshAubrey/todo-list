@@ -125,9 +125,18 @@ nav {
 }
 
 /* Table styles */
+#header {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}
 
 .table {
-  margin: 20px;
+  margin-top: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .table-row {
@@ -254,7 +263,7 @@ nav {
     overflow-x: hidden;
     width: 0;
     z-index: 5;
-    transition: width .3s ease-in-out;
+    transition: width .2s ease-in-out;
   }
 
   .active-project {
@@ -262,7 +271,14 @@ nav {
   }
 
   .mobile {
-    width: 100%;
+    width: 40%;
+  }
+
+  #newProject {
+    color: white;
+  }
+  #newProject:hover {
+    color:#757575;
   }
 
   .sidebar-item {
@@ -271,12 +287,16 @@ nav {
 
   .sidebar-item:hover {
     background: white;
-    color: #0c0c0c;
-    border: none;
+    color: #0c0c0c;    
   }
 
   .main {
     width: 100%;
+  }
+
+  #header {
+    width: 80%;
+    margin: 0 auto;
   }
 
   .table {

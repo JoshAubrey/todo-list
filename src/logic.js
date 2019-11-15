@@ -118,6 +118,10 @@ function removeProject(index) {
     for (let i=0; i<todoArray.length; i++){
         if (todoArray[i].project == projectArray[index]){
             removeTodo(i)
+            i-- //avoid skipping index because of remoteTodo's splicing
+        }
+        else {
+            console.log(todoArray[i].project + ' != ' + projectArray[index])
         }
     }
 
@@ -137,19 +141,19 @@ function removeTodo(index) {
 }
 
 function seed() {
-    //set default projectArray if there are none
-    if (projectArray == '')
+    //set default projectArray and todoArray if there are none
+    if (projectArray == '' && todoArray == '')
     {
         addProject('Project Alpha')
         addProject('Project Beta')
         addProject('Project Gamma')
-    }
-    //set default todoArray if there are none
-    if (todoArray == '') {
         addTodo(new Todo('Investigate Beta', 'Project Alpha', false, true, 'See what Beta is up to.'))
         addTodo(new Todo('Observe Gamma', 'Project Alpha', true, false, 'Keep an eye on Gamma.'))
+        addTodo(new Todo('Destroy Alpha', 'Project Beta', false, true, 'Eliminate all traces.'))
+        addTodo(new Todo('Hide from Beta', 'Project Gamma', true, true, 'Keep it secret, keep it safe.'))
+        addTodo(new Todo('Find Gamma', 'Project Beta', false, true, 'Locate for assimilation.'))
+
     }
-    
 }
 
 //check for storage, source: https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#Testing_for_availability
