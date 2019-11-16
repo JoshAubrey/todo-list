@@ -6,7 +6,9 @@ import {
     toggleDone,
     toggleImportant, 
     addProject, 
-    addTodo, 
+    addTodo,
+    editProject,
+    editTodo,  
     removeProject, 
     removeTodo, 
     seed
@@ -35,10 +37,6 @@ function renderProjectMenu() {
     else if (header.classList.contains('hide')){
         header.classList.remove('hide')
     }
-
-    //console.clear()
-    //console.table(projectArray)
-    //console.log('currentProject: ' + currentProject)
 }
 
 function renderProject(project, index) {
@@ -65,12 +63,8 @@ function renderTodoTable() {
     todoTable.innerHTML = ''
     const todos = todoArray
         .filter(todo => todo.project == currentProject)
-        .map((todo, index) => renderTodo(todo, index))
+        .map(todo => renderTodo(todo, todoArray.indexOf(todo)))
     todos.forEach(todo => todoTable.appendChild(todo))
-    
-    // console.clear()
-    // console.table(todoArray.filter(todo => todo.project == currentProject))
-    
 }
 
 function renderTodo(todo, index) {
@@ -160,7 +154,15 @@ function renderTodo(todo, index) {
             edit.textContent = 'edit'
             edit.onclick = () => {
                 const editTodoWindow = document.getElementById('edit-todo-window')
+                editTodoWindow.style.visibility = 'visible'
+                
+                const editTodoTitle = document.getElementById('editTodoTitle')
+                const editTodoComments = document.getElementById('editTodoComments')
+                editTodoTitle.value = todo.title
+                editTodoTitle.dataset.index = index
+                editTodoComments.value = todo.comment
             }
+
             tableRow.appendChild(edit)
 
             const deleteTodo =  document.createElement('div')
@@ -169,7 +171,7 @@ function renderTodo(todo, index) {
             deleteTodo.classList.add('material-icons')
             deleteTodo.textContent = 'delete_outline'
             deleteTodo.onclick = () => {
-                removeTodo(todoArray.indexOf(todo))
+                removeTodo(index)
                 renderTodoTable()
             }
             tableRow.appendChild(deleteTodo)
@@ -210,8 +212,65 @@ cancelAddProjectButton.addEventListener('click', (e) => {
     addProjectWindow.style.visibility = 'hidden'
 })
 
-const editProject = document.getElementById('edit-todo-window')
-const editProjectWindow = document.getElementById('add-project-window')
+const editProjectButton = document.getElementById('editProject')
+const editProjectWindow = document.getElementById('edit-project-window')
+const editProjectTitle = document.getElementById('editProjectTitle')
+const updateProjectButton = document.getElementById('update-project')
+const cancelEditProjectButton = document.getElementById('close-edit-project-form')
+editProjectButton.onclick = () => {
+    editProjectTitle.value = currentProject
+    editProjectWindow.style.visibility = 'visible'
+}
+updateProjectButton.addEventListener('click', (e) => {
+    e.preventDefault() //prevent page refresh
+
+    let index = projectArray.indexOf(currentProject)
+
+    if (editProjectTitle.value !== '') {
+        editProject(index, editProjectTitle.value)
+        currentProject = editProjectTitle.value
+        editProjectTitle.value = ''
+        renderProjectMenu()
+        renderTodoTable()
+        editProjectWindow.style.visibility = 'hidden'
+    }
+})
+cancelEditProjectButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    editProjectTitle.value = ''
+    editProjectWindow.style.visibility = 'hidden'
+})
+
+const editTodoWindow = document.getElementById('edit-todo-window')
+const editTodoTitle = document.getElementById('editTodoTitle')
+const editTodoComments = document.getElementById('editTodoComments')
+const updateTodoButton = document.getElementById('update-todo')
+const cancelEditTodoButton = document.getElementById('close-edit-todo-form')
+updateTodoButton.addEventListener('click', (e) => {
+    e.preventDefault() //prevent page refresh
+
+    let index = editTodoTitle.dataset.index
+
+    if (editTodoTitle.value !== '') {
+        editTodo(index, new Todo(
+            editTodoTitle.value,
+            currentProject,
+            todoArray[index].done,
+            todoArray[index].important,
+            editTodoComments.value
+        ))
+        editTodoTitle.value = ''
+        editTodoComments.value = ''
+        renderTodoTable()
+        editTodoWindow.style.visibility = 'hidden'
+    }
+})
+cancelEditTodoButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    editTodoTitle.value = ''
+    editTodoComments.value = ''
+    editTodoWindow.style.visibility = 'hidden'
+})
 
 const deleteProject = document.getElementById('deleteProject')
 deleteProject.onclick = () => {
@@ -244,7 +303,6 @@ addNewTodoButton.addEventListener('click', (e) => {
         newTodoTitle.value = ''
         newTodoComments.value = ''
         renderTodoTable()
-        renderProjectMenu()
         addTodoWindow.style.visibility = 'hidden'
     }
 })

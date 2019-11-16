@@ -1,12 +1,6 @@
 let projectArray = []
 let todoArray = []
 
-//console.clear()
-//localStorage.removeItem('projectArray')
-//localStorage.removeItem('todoArray')
-//json.stringify drops functions for localstorage such as class and prototype methods (toggledone, toggleimportant).
-//Solution: Created independent functions that take the objects and updates them. 
-
 function checkForStorage() {
     //check for and then create or read localStorage
     if (storageAvailable('localStorage') && (JSON.parse(localStorage.getItem('projectArray')) == null)) {
@@ -32,6 +26,12 @@ function Todo(title, project, done, important, comment) {
     this.important = important
     this.comment = comment
 }
+
+//console.clear()
+//localStorage.removeItem('projectArray')
+//localStorage.removeItem('todoArray')
+//json.stringify drops functions for localstorage such as class and prototype methods (toggledone, toggleimportant).
+//Solution: Created independent functions that take the objects and updates them. 
 
 // Todo.prototype.toggleDone = function() {
 //     this.done = !this.done
@@ -106,6 +106,45 @@ function addTodo(todo) {
     //Could check if project is new project, but not needed with current UI.
 
     todoArray.push(todo)
+
+    if (storageAvailable('localStorage')) {
+        localStorage.setItem('todoArray', JSON.stringify(todoArray))
+      }
+}
+
+function editProject (index, updatedProject) {
+    
+    //first update project's todos
+    for (let i=0; i<todoArray.length; i++){
+        if (todoArray[i].project == projectArray[index]){
+            editTodo(i, new Todo(
+                todoArray[i].title,
+                updatedProject,
+                todoArray[i].done,
+                todoArray[i].important,
+                todoArray[i].comment
+                ))
+        }
+    }
+
+    projectArray.splice(index, 1, updatedProject)
+
+    if (storageAvailable('localStorage')) {
+        localStorage.setItem('projectArray', JSON.stringify(projectArray))
+          }
+}
+
+function editTodo (index, updatedTodo) {
+    
+    todoArray.splice(index, 1, updatedTodo)
+    // todoArray.splice(index, 1, addTodo(new Todo(
+    //         updatedTodo.title,
+    //         updatedTodo.project,
+    //         updatedTodo.done,
+    //         updatedTodo.important,
+    //         updatedTodo.comment
+    //     ))
+    //     )
 
     if (storageAvailable('localStorage')) {
         localStorage.setItem('todoArray', JSON.stringify(todoArray))
@@ -187,7 +226,9 @@ export {
     toggleDone,
     toggleImportant, 
     addProject, 
-    addTodo, 
+    addTodo,
+    editProject,
+    editTodo, 
     removeProject, 
     removeTodo, 
     seed

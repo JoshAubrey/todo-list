@@ -6,7 +6,9 @@ import {
     toggleDone,
     toggleImportant, 
     addProject, 
-    addTodo, 
+    addTodo,
+    editProject,
+    editTodo, 
     removeProject, 
     removeTodo, 
     seed
