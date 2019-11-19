@@ -14,13 +14,8 @@ import {
     seed
 } from './logic.js'
 
-checkForStorage()
-seed()
-
-let currentProject = projectArray[0]
-
+let currentProject
 const projectMenu = document.getElementById('projectMenu')
-const todoTable = document.getElementById('todoTable')
 
 function renderProjectMenu() {
     projectMenu.innerHTML = ''
@@ -60,6 +55,8 @@ function renderProject(project, index) {
 }
 
 function renderTodoTable() {
+    const todoTable = document.getElementById('todoTable')
+
     todoTable.innerHTML = ''
     const todos = todoArray
         .filter(todo => todo.project == currentProject)
@@ -187,150 +184,166 @@ function renderTodo(todo, index) {
     return rowContainer
 }
 
-const newProject = document.getElementById('newProject')
-const addProjectWindow = document.getElementById('add-project-window')
-const newProjectTitle = document.getElementById('newProjectTitle')
-const addProjectButton = document.getElementById('add-project')
-const cancelAddProjectButton = document.getElementById('close-new-project-form')
-newProject.onclick = () => {
-    addProjectWindow.style.visibility = 'visible'
-}
-addProjectButton.addEventListener('click', (e) => {
-    e.preventDefault() //prevent page refresh
-    if (newProjectTitle.value !== '') {
-        addProject(newProjectTitle.value)
-        currentProject = newProjectTitle.value
+function addEventListeners () {
+
+    const newProject = document.getElementById('newProject')
+    const addProjectWindow = document.getElementById('add-project-window')
+    const newProjectTitle = document.getElementById('newProjectTitle')
+    const addProjectButton = document.getElementById('add-project')
+    const cancelAddProjectButton = document.getElementById('close-new-project-form')
+    newProject.onclick = () => {
+        addProjectWindow.style.visibility = 'visible'
+    }
+    addProjectButton.addEventListener('click', (e) => {
+        e.preventDefault() //prevent page refresh
+        if (newProjectTitle.value !== '') {
+            addProject(newProjectTitle.value)
+            currentProject = newProjectTitle.value
+            newProjectTitle.value = ''
+            renderTodoTable()
+            renderProjectMenu()
+            addProjectWindow.style.visibility = 'hidden'
+        }
+    })
+    cancelAddProjectButton.addEventListener('click', (e) => {
+        e.preventDefault()
         newProjectTitle.value = ''
-        renderTodoTable()
-        renderProjectMenu()
         addProjectWindow.style.visibility = 'hidden'
+    })
+
+    const editProjectButton = document.getElementById('editProject')
+    const editProjectWindow = document.getElementById('edit-project-window')
+    const editProjectTitle = document.getElementById('editProjectTitle')
+    const updateProjectButton = document.getElementById('update-project')
+    const cancelEditProjectButton = document.getElementById('close-edit-project-form')
+    editProjectButton.onclick = () => {
+        editProjectTitle.value = currentProject
+        editProjectWindow.style.visibility = 'visible'
     }
-})
-cancelAddProjectButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    newProjectTitle.value = ''
-    addProjectWindow.style.visibility = 'hidden'
-})
+    updateProjectButton.addEventListener('click', (e) => {
+        e.preventDefault() //prevent page refresh
 
-const editProjectButton = document.getElementById('editProject')
-const editProjectWindow = document.getElementById('edit-project-window')
-const editProjectTitle = document.getElementById('editProjectTitle')
-const updateProjectButton = document.getElementById('update-project')
-const cancelEditProjectButton = document.getElementById('close-edit-project-form')
-editProjectButton.onclick = () => {
-    editProjectTitle.value = currentProject
-    editProjectWindow.style.visibility = 'visible'
-}
-updateProjectButton.addEventListener('click', (e) => {
-    e.preventDefault() //prevent page refresh
+        let index = projectArray.indexOf(currentProject)
 
-    let index = projectArray.indexOf(currentProject)
-
-    if (editProjectTitle.value !== '') {
-        editProject(index, editProjectTitle.value)
-        currentProject = editProjectTitle.value
+        if (editProjectTitle.value !== '') {
+            editProject(index, editProjectTitle.value)
+            currentProject = editProjectTitle.value
+            editProjectTitle.value = ''
+            renderProjectMenu()
+            renderTodoTable()
+            editProjectWindow.style.visibility = 'hidden'
+        }
+    })
+    cancelEditProjectButton.addEventListener('click', (e) => {
+        e.preventDefault()
         editProjectTitle.value = ''
-        renderProjectMenu()
-        renderTodoTable()
         editProjectWindow.style.visibility = 'hidden'
-    }
-})
-cancelEditProjectButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    editProjectTitle.value = ''
-    editProjectWindow.style.visibility = 'hidden'
-})
+    })
 
-const editTodoWindow = document.getElementById('edit-todo-window')
-const editTodoTitle = document.getElementById('editTodoTitle')
-const editTodoComments = document.getElementById('editTodoComments')
-const updateTodoButton = document.getElementById('update-todo')
-const cancelEditTodoButton = document.getElementById('close-edit-todo-form')
-updateTodoButton.addEventListener('click', (e) => {
-    e.preventDefault() //prevent page refresh
+    const editTodoWindow = document.getElementById('edit-todo-window')
+    const editTodoTitle = document.getElementById('editTodoTitle')
+    const editTodoComments = document.getElementById('editTodoComments')
+    const updateTodoButton = document.getElementById('update-todo')
+    const cancelEditTodoButton = document.getElementById('close-edit-todo-form')
+    updateTodoButton.addEventListener('click', (e) => {
+        e.preventDefault() //prevent page refresh
 
-    let index = editTodoTitle.dataset.index
+        let index = editTodoTitle.dataset.index
 
-    if (editTodoTitle.value !== '') {
-        editTodo(index, new Todo(
-            editTodoTitle.value,
-            currentProject,
-            todoArray[index].done,
-            todoArray[index].important,
-            editTodoComments.value
-        ))
+        if (editTodoTitle.value !== '') {
+            editTodo(index, new Todo(
+                editTodoTitle.value,
+                currentProject,
+                todoArray[index].done,
+                todoArray[index].important,
+                editTodoComments.value
+            ))
+            editTodoTitle.value = ''
+            editTodoComments.value = ''
+            renderTodoTable()
+            editTodoWindow.style.visibility = 'hidden'
+        }
+    })
+    cancelEditTodoButton.addEventListener('click', (e) => {
+        e.preventDefault()
         editTodoTitle.value = ''
         editTodoComments.value = ''
-        renderTodoTable()
         editTodoWindow.style.visibility = 'hidden'
+    })
+
+    const deleteProject = document.getElementById('deleteProject')
+    deleteProject.onclick = () => {
+        removeProject(projectArray.indexOf(currentProject))
+        //seed() //comment for seed to only happen on page refresh
+        currentProject = projectArray[0]
+        renderProjectMenu()
+        renderTodoTable()
     }
-})
-cancelEditTodoButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    editTodoTitle.value = ''
-    editTodoComments.value = ''
-    editTodoWindow.style.visibility = 'hidden'
-})
 
-const deleteProject = document.getElementById('deleteProject')
-deleteProject.onclick = () => {
-    removeProject(projectArray.indexOf(currentProject))
-    seed()
-    currentProject = projectArray[0]
-    renderProjectMenu()
-    renderTodoTable()
-}
-
-const addTodoButton = document.getElementById('addTodoButton')
-const addTodoWindow = document.getElementById('add-todo-window')
-const newTodoTitle = document.getElementById('newTodoTitle')
-const newTodoComments = document.getElementById('newTodoComments')
-const addNewTodoButton = document.getElementById('add-todo')
-const cancelAddNewTodoButton = document.getElementById('close-add-todo-form')
-addTodoButton.onclick = () => {
-    addTodoWindow.style.visibility = 'visible'
-}
-addNewTodoButton.addEventListener('click', (e) => {
-    e.preventDefault() //prevent page refresh
-    if (newTodoTitle.value !== '') {
-        addTodo(new Todo(
-            newTodoTitle.value,
-            currentProject,
-            false,
-            false,
-            newTodoComments.value
-        ))
+    const addTodoButton = document.getElementById('addTodoButton')
+    const addTodoWindow = document.getElementById('add-todo-window')
+    const newTodoTitle = document.getElementById('newTodoTitle')
+    const newTodoComments = document.getElementById('newTodoComments')
+    const addNewTodoButton = document.getElementById('add-todo')
+    const cancelAddNewTodoButton = document.getElementById('close-add-todo-form')
+    addTodoButton.onclick = () => {
+        addTodoWindow.style.visibility = 'visible'
+    }
+    addNewTodoButton.addEventListener('click', (e) => {
+        e.preventDefault() //prevent page refresh
+        if (newTodoTitle.value !== '') {
+            addTodo(new Todo(
+                newTodoTitle.value,
+                currentProject,
+                false,
+                false,
+                newTodoComments.value
+            ))
+            newTodoTitle.value = ''
+            newTodoComments.value = ''
+            renderTodoTable()
+            addTodoWindow.style.visibility = 'hidden'
+        }
+    })
+    cancelAddNewTodoButton.addEventListener('click', (e) => {
+        e.preventDefault()
         newTodoTitle.value = ''
         newTodoComments.value = ''
-        renderTodoTable()
         addTodoWindow.style.visibility = 'hidden'
-    }
-})
-cancelAddNewTodoButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    newTodoTitle.value = ''
-    newTodoComments.value = ''
-    addTodoWindow.style.visibility = 'hidden'
-})
+    })
 
-const toggleMenu = document.getElementById('toggleMenu')
-const sidebar = document.getElementById('sidebar')
-toggleMenu.onclick = () => {
-    if (sidebar.classList.contains('mobile')) {
-        sidebar.classList.remove('mobile')
+    const toggleMenu = document.getElementById('toggleMenu')
+    const sidebar = document.getElementById('sidebar')
+    toggleMenu.onclick = () => {
+        if (sidebar.classList.contains('mobile')) {
+            sidebar.classList.remove('mobile')
+        }
+        else {
+            sidebar.classList.add('mobile')
+        }
     }
-    else {
-        sidebar.classList.add('mobile')
+    projectMenu.onclick = () => {
+        if (sidebar.classList.contains('mobile')) {
+            sidebar.classList.remove('mobile')
+        }
     }
 }
-projectMenu.onclick = () => {
-    if (sidebar.classList.contains('mobile')) {
-        sidebar.classList.remove('mobile')
-    }
+
+function initializeDOM () {
+    checkForStorage()
+    seed()
+
+    currentProject = projectArray[0]
+    
+    renderProjectMenu()
+    renderTodoTable()
+    addEventListeners()
 }
 
 export {
+    currentProject,
     renderProjectMenu, 
     renderTodoTable,
-    currentProject
+    addEventListeners,
+    initializeDOM
 }

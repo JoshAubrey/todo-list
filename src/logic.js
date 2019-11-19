@@ -27,11 +27,11 @@ function Todo(title, project, done, important, comment) {
     this.comment = comment
 }
 
+//json.stringify drops functions for localstorage such as class and prototype methods (toggledone, toggleimportant).
+//Solution: Created independent functions that take the objects and updates them. 
 //console.clear()
 //localStorage.removeItem('projectArray')
 //localStorage.removeItem('todoArray')
-//json.stringify drops functions for localstorage such as class and prototype methods (toggledone, toggleimportant).
-//Solution: Created independent functions that take the objects and updates them. 
 
 // Todo.prototype.toggleDone = function() {
 //     this.done = !this.done
@@ -180,14 +180,24 @@ function seed() {
     //set default projectArray and todoArray if there are none
     if (projectArray == '' && todoArray == '')
     {
-        addProject('Project Alpha')
-        addProject('Project Beta')
-        addProject('Project Gamma')
-        addTodo(new Todo('Investigate Beta', 'Project Alpha', false, true, 'See what Beta is up to.'))
-        addTodo(new Todo('Observe Gamma', 'Project Alpha', true, false, 'Keep an eye on Gamma.'))
-        addTodo(new Todo('Destroy Alpha', 'Project Beta', false, true, 'Eliminate all traces.'))
-        addTodo(new Todo('Hide from Beta', 'Project Gamma', true, true, 'Keep it secret, keep it safe.'))
-        addTodo(new Todo('Find Gamma', 'Project Beta', false, true, 'Locate for assimilation.'))
+        //demo 
+        addProject('Default Project')
+        addTodo(new Todo('Hi, I\'m a todo! Click me to view my notes!', 'Default Project', false, false, 'You\'ve expanded my notes/comments!'))
+        addTodo(new Todo('Mark me important!', 'Default Project', false, true, 'Click the star!'))
+        addTodo(new Todo('Mark me as done!', 'Default Project', true, false, 'Click the checkbox!'))
+        addTodo(new Todo('Add a new todo!', 'Default Project', false, false, 'Click the + icon straight above!'))
+        addTodo(new Todo('Add a new Project!', 'Default Project', false, false, 'Click \"Add New Project...\" on the top left! If on mobile, first click the menu icon on the top left!'))
+        addTodo(new Todo('Edit or delete anything!', 'Default Project', false, false, 'Click the pencil or trash icons. If everything is deleted, the default project will return on page refresh!'))
+
+        //testing
+        // addProject('Project Alpha')
+        // addProject('Project Beta')
+        // addProject('Project Gamma')
+        // addTodo(new Todo('Investigate Beta', 'Project Alpha', false, true, 'See what Beta is up to.'))
+        // addTodo(new Todo('Observe Gamma', 'Project Alpha', true, false, 'Keep an eye on Gamma.'))
+        // addTodo(new Todo('Destroy Alpha', 'Project Beta', false, true, 'Eliminate all traces.'))
+        // addTodo(new Todo('Hide from Beta', 'Project Gamma', true, true, 'Keep it secret, keep it safe.'))
+        // addTodo(new Todo('Find Gamma', 'Project Beta', false, true, 'Locate for assimilation.'))
 
     }
 }

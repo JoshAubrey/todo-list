@@ -15,14 +15,11 @@ import {
 } from './logic.js'
 
 import {
+    currentProject,
     renderProjectMenu, 
     renderTodoTable,
-    currentProject
+    addEventListeners,
+    initializeDOM
 } from './dom.js'
 
-renderProjectMenu()
-renderTodoTable()
-
-// console.table(projectArray)
-// console.log('currentProject: ' + currentProject)
-// console.table(todoArray)
+initializeDOM()
